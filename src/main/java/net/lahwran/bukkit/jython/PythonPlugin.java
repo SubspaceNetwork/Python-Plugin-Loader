@@ -328,6 +328,7 @@ private boolean isEnabled = false;
         }
 
         try {
+            dataFile.reload();
             return dataFile.getStream(filename);
         } catch (IOException e) {
             //just return null and do not print stack trace as JavaPlugin's getResource does not print it either
@@ -375,13 +376,20 @@ private boolean isEnabled = false;
     }
 
     public void reloadConfig() {
-        newConfig = YamlConfiguration.loadConfiguration(configFile);
+        if (configFile != null){
+            newConfig = YamlConfiguration.loadConfiguration(configFile);
 
-        InputStream defConfigStream = getResource("config.yml");
-        if (defConfigStream != null) {
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+            InputStream defConfigStream = getResource("config.yml");
+            if (defConfigStream != null) {
+                YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
 
-            newConfig.setDefaults(defConfig);
+                newConfig.setDefaults(defConfig);
+            }
+        } else {
+            InputStream defConfigStream = getResource("config.yml");
+            if (defConfigStream != null) {
+                newConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+            }
         }
     }
 

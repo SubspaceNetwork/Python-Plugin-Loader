@@ -5,6 +5,7 @@ package net.lahwran.bukkit.jython;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.Boolean;
 
 /**
  * Used on initialization of a plugin, because I now have three different kinds
@@ -13,6 +14,8 @@ import java.io.InputStream;
  *
  */
 public abstract class PluginDataFile {
+
+    public Boolean closed = true;  // Whether the data file is closed or not.
 
     /**
      * Close up shop.
@@ -26,7 +29,7 @@ public abstract class PluginDataFile {
      * Get a stream for a file inside the datafile.
      * @param filename name to get
      * @return stream or null if file does not exist
-     * @throws IOException  thrown if opening fails
+     * @throws IOException thrown if opening fails
      */
     public abstract InputStream getStream(String filename) throws IOException;
 
@@ -39,4 +42,13 @@ public abstract class PluginDataFile {
      * @return true if an exception should be thrown for missing solid metadata
      */
     public abstract boolean getNeedsSolidMeta();
+
+    /**
+     * Use this to reload any files.
+     * @author gdude2002
+     * @throws IOException thrown if reloading fails
+     */
+    public void reload() throws IOException {
+        // This is an optionally overridable method.
+    }
 }
