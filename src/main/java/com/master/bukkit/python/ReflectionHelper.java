@@ -103,7 +103,7 @@ public class ReflectionHelper {
         if (javaLoaders != null)
             return javaLoaders;
 
-        getJavaLoaders(pm);
+        getJavaPluginLoader(pm);
         if (javapluginloader == null)
             return null;
 
