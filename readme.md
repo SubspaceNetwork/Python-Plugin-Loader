@@ -1,8 +1,10 @@
 Python Plugin Loader
 ====================
 
-The python plugin loader is a pluginloader for bukkit to load python plugins
-via jython (and hopefully via jpype eventually). 
+The Python Plugin Loader is a plugin loader for Bukkit to load Python plugins
+via Jython.
+
+Dev builds for this fork can be found [here](http://bamboo.gserv.me/browse/PLUG-PYPL).
 
 
 Using the plugin loader
@@ -12,9 +14,9 @@ Building
 ********
 
 
-1. Get maven.
-2. Run mvn clean package
-3. Your product will be in target/
+1. Get Gradle.
+2. Run gradle clean build
+3. Your product will be in build/lib/
 
 
 Running
@@ -23,7 +25,7 @@ Running
 0. Ensure you are using a bukkit build that uses
    https://github.com/Bukkit/Bukkit/pull/335 - otherwise, only some of your
    plugins will work.
-1. Put PyPluginLoader-0.2.jar in your bukkit/plugins/ dir
+1. Put PyPluginLoader-<version>.jar in your bukkit/plugins/ dir
 2. Put jython.jar in your bukkit/lib/ dir
 3. [Re-]Start bukkit
 
