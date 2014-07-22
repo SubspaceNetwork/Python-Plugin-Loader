@@ -1,10 +1,15 @@
-
-# eclipse
+# Eclipse
 .classpath
 .project
 .settings/
 bin/
 
-# maven build
+# Maven build
 target/
 
+# Gradle build
+build/
+
+# IDEA
+.idea/
+*.iml

@@ -1,3 +1,16 @@
+I guess I should update this. This was pulled when I forked it, but let's add some more fixes.
+
+1. Squash the warning when config.yml exists already
+2. Fix a typo in the reflection helper
+3. Fix depends in plugin.yml not being loaded properly
+4. Fix saveDefaultConfig() - it was erroring
+
+-----
+
+The below is content from the original file, pre-fork.
+
+-----
+
 Issues in original
 ------------------
 

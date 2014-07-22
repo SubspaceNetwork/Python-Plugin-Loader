@@ -1,0 +1,72 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'build-announcements'
+apply plugin: 'maven'
+apply plugin: 'ivy-publish'
+
+sourceCompatibility = 1.7
+version = '0.3.5'
+group = "org.masteroftime"
+
+repositories {
+    flatDir {
+        // dirs '../lib', 'lib'
+        dirs 'lib'
+    }
+    // Bukkit
+    maven {
+        url 'http://repo.bukkit.org/content/groups/public/'
+    }
+    // Maven central
+    mavenCentral()
+}
+
+configurations {
+    // configuration that holds jars to copy into lib
+    extraLibs
+}
+dependencies {
+    extraLibs 'org.python:jython-standalone:2.5.3'
+}
+
+jar {
+    from sourceSets.main.allJava
+    archiveName = "PyPluginLoader-${version}.jar"
+
+    into('lib') {
+        from configurations.extraLibs
+    }
+}
+
+artifacts {
+    archives jar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.artifactId = "PyPluginLoader"
+            repository(url: "file://localhost/var/www/gserv/cherry/repos/maven/")
+        }
+    }
+}
+
+publishing {
+    publications {
+        ivyJava(IvyPublication) {
+            from components.java
+            module "PyPluginLoader"
+        }
+    }
+    repositories {
+        ivy {
+            name "publish"
+            url "/var/www/gserv/cherry/repos/ivy/"
+        }
+    }
+}
+
+dependencies {
+    compile 'org.python:jython-standalone:2.5.3'
+    compile 'org.bukkit:bukkit:1.7.9-R0.2'
+}
