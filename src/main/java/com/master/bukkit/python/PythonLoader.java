@@ -81,7 +81,7 @@ public class PythonLoader extends JavaPlugin {
                 dl_file.renameTo(new File("lib/jython.jar"));
                 getServer().getLogger().log(Level.INFO, "Download successful!");
             } catch (IOException e) {
-                getServer().getLogger().log(Level.SEVERE, "Error while donwloading jython.jar, loading of python plugins will fail! Please download jython from https://github.com/downloads/masteroftime/Python-Plugin-Loader/jython.jar and place it in the lib folder");
+                getServer().getLogger().log(Level.SEVERE, "Error while downloading jython.jar, loading of python plugins will fail! Please download jython from http://dev.bukkit.org/media/files/647/602/jython.jar and place it in the lib folder");
                 e.printStackTrace();
             }
         }
@@ -103,7 +103,7 @@ public class PythonLoader extends JavaPlugin {
         if (needsload) {
             //System.out.println("PythonLoader: loading into bukkit");
             pm.registerInterface(PythonPluginLoader.class);
-            //pm.loadPlugins(this.getFile().getParentFile()); //TODO Check weather this reloads java plugins which were already laoded
+            //pm.loadPlugins(this.getFile().getParentFile()); //TODO Check weather this reloads java plugins which were already loaded
 
             for (File file : this.getFile().getParentFile().listFiles()) {
                 for (Pattern filter : PythonPluginLoader.fileFilters) {

@@ -4,7 +4,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 /**
- * Superclass for custom events in pyhton
+ * Superclass for custom events in python
  *  @author masteroftime
  */
 public abstract class PythonCustomEvent extends Event {
