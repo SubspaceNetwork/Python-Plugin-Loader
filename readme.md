@@ -1,6 +1,11 @@
 Python Plugin Loader
 ====================
 
+If there are changes you want made to this plugin, please open an issue instead of forking. The only
+reason I forked this plugin was because the developers had abandoned it - I, however, am trying
+to keep it maintained, so there's no need to fork for a feature, unless you're thinking of
+submitting a pull request.
+
 The Python Plugin Loader is a plugin loader for Bukkit to load Python plugins
 via Jython.
 
