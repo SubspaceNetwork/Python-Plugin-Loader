@@ -34,7 +34,6 @@ import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.TimedRegisteredListener;
 import org.bukkit.plugin.UnknownDependencyException;
-import org.bukkit.plugin.java.JavaPluginLoader;
 import org.python.core.Py;
 import org.python.core.PyList;
 import org.python.core.PyObject;
@@ -71,7 +70,7 @@ public class PythonPluginLoader implements PluginLoader {
             Pattern.compile("^(.*)\\.py$"),
         };
 
-    private HashSet<String> loadedplugins = new HashSet<String>();
+    private HashSet<String> loadedplugins = new HashSet<>();
 
     /**
      * @param server server to initialize with
@@ -92,7 +91,7 @@ public class PythonPluginLoader implements PluginLoader {
                     file.getPath())));
         }
 
-        PluginDataFile data = null;
+        PluginDataFile data;
 
         if (file.getName().endsWith(".py")) {
             if (file.isDirectory())
@@ -124,8 +123,8 @@ public class PythonPluginLoader implements PluginLoader {
     @SuppressWarnings("unchecked")
     private Plugin loadPlugin(File file, boolean ignoreSoftDependencies, PluginDataFile data) throws InvalidPluginException/*, InvalidDescriptionException, UnknownDependencyException*/ {
         System.out.println("[PythonLoader] Loading Plugin " + file.getName());
-        PythonPlugin result = null;
-        PluginDescriptionFile description = null;
+        PythonPlugin result;
+        PluginDescriptionFile description;
         boolean hasyml = true;
         boolean hassolidmeta = false; // whether we have coder-set metadata. true for have set metadata, false for inferred metadata.
         try {
@@ -145,11 +144,7 @@ public class PythonPluginLoader implements PluginLoader {
             }
             if (stream != null)
                 stream.close();
-        } catch (IOException ex) {
-            throw new InvalidPluginException(ex);
-        } catch (YAMLException ex) {
-            throw new InvalidPluginException(ex);
-        } catch (InvalidDescriptionException ex) {
+        } catch (IOException | YAMLException | InvalidDescriptionException ex) {
             throw new InvalidPluginException(ex);
         }
 
@@ -172,9 +167,9 @@ public class PythonPluginLoader implements PluginLoader {
         List<String> depend;
 
         try {
-            depend = (List<String>) description.getDepend();
+            depend = description.getDepend();
             if (depend == null) {
-                depend = new ArrayList<String>();
+                depend = new ArrayList<>();
             }
         } catch (ClassCastException ex) {
             throw new InvalidPluginException(ex);
@@ -198,7 +193,7 @@ public class PythonPluginLoader implements PluginLoader {
 
 
         String mainfile = description.getMain();
-        InputStream instream = null;
+        InputStream instream;
         try {
             instream = data.getStream(mainfile);
 
@@ -324,9 +319,7 @@ public class PythonPluginLoader implements PluginLoader {
     private boolean isPluginLoaded(String name) {
         if (loadedplugins.contains(name))
             return true;
-        if (ReflectionHelper.isJavaPluginLoaded(server.getPluginManager(), name))
-            return true;
-        return false;
+        return ReflectionHelper.isJavaPluginLoaded(server.getPluginManager(), name);
     }
 
     public Pattern[] getPluginFileFilters() {
@@ -407,7 +400,7 @@ public class PythonPluginLoader implements PluginLoader {
     public Map<Class<? extends Event>, Set<RegisteredListener>> createRegisteredListeners(
             Listener listener, Plugin plugin) {
         boolean useTimings = server.getPluginManager().useTimings();
-        Map<Class<? extends Event>, Set<RegisteredListener>> ret = new HashMap<Class<? extends Event>, Set<RegisteredListener>>();
+        Map<Class<? extends Event>, Set<RegisteredListener>> ret = new HashMap<>();
 
         if(!listener.getClass().equals(PythonListener.class)) {
             throw new IllegalArgumentException("Listener to register is not a PythonListener");
@@ -416,7 +409,7 @@ public class PythonPluginLoader implements PluginLoader {
         PythonListener pyListener = (PythonListener)listener;
 
         for(Map.Entry<Class<? extends Event>, Set<PythonEventHandler>> entry : pyListener.handlers.entrySet()) {
-            Set<RegisteredListener> eventSet = new HashSet<RegisteredListener>();
+            Set<RegisteredListener> eventSet = new HashSet<>();
 
             for(final PythonEventHandler handler : entry.getValue()) {
                 EventExecutor executor = new EventExecutor() {
@@ -447,7 +440,7 @@ public class PythonPluginLoader implements PluginLoader {
         Validate.notNull(file, "File cannot be null");
 
         InputStream stream = null;
-        PluginDataFile data = null;
+        PluginDataFile data;
 
         if (file.getName().endsWith(".py")) {
             if (file.isDirectory())
@@ -485,7 +478,7 @@ public class PythonPluginLoader implements PluginLoader {
             if(stream != null) {
                 try {
                     stream.close();
-                } catch (IOException e) {}
+                } catch (IOException ignored) {}
             }
         }
         return null;

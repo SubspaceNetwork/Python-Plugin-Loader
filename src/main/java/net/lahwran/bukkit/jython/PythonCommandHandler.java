@@ -8,7 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.python.antlr.ast.alias;
 import org.python.core.*;
 
 
@@ -69,11 +68,11 @@ public class PythonCommandHandler implements CommandExecutor, TabCompleter {
 
     private ArrayList<String> toJavaStringList(PyObject pyList) {
         if(pyList.getType().equals(PyString.TYPE)) {
-            ArrayList<String> result = new ArrayList<String>(1);
+            ArrayList<String> result = new ArrayList<>(1);
             result.add(pyList.asString());
             return result;
         } else if(pyList.isSequenceType()) {
-            ArrayList<String> result = new ArrayList<String>();
+            ArrayList<String> result = new ArrayList<>();
             for(PyObject o : pyList.asIterable()) {
                 result.add(o.asString());
             }
@@ -115,7 +114,7 @@ public class PythonCommandHandler implements CommandExecutor, TabCompleter {
             return null;
         }
 
-        PyObject result = null;
+        PyObject result;
         if (tabArgcount == -1) {
             try {
                 result = tabComplete.__call__(pyArgs(sender, command, label, args));

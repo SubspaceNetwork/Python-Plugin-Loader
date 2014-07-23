@@ -3,11 +3,7 @@
  */
 package net.lahwran.bukkit.jython;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,6 +14,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.generator.ChunkGenerator;
@@ -115,9 +112,9 @@ private boolean isEnabled = false;
     }
 
     /**
-     * Returns the plugin.yaml file containing the details for this plugin
+     * Returns the plugin.yml file containing the details for this plugin
      *
-     * @return Contents of the plugin.yaml file
+     * @return Contents of the plugin.yml file
      */
     public PluginDescriptionFile getDescription() {
         return description;
@@ -179,7 +176,6 @@ private boolean isEnabled = false;
      * @param description PluginDescriptionFile containing metadata on this plugin
      * @param dataFolder Folder containing the plugin's data
      * @param file File containing this plugin
-     * @param classLoader ClassLoader which holds this plugin
      */
     protected final void initialize(PluginLoader loader, Server server,
             PluginDescriptionFile description, File dataFolder, File file ) { //,
@@ -223,7 +219,7 @@ private boolean isEnabled = false;
      * @return List of Classes that are Ebeans
      */
     public List<Class<?>> getDatabaseClasses() {
-        return new ArrayList<Class<?>>();
+        return new ArrayList<>();
     }
 
 //    private String replaceDatabaseString(String input) {
@@ -381,14 +377,25 @@ private boolean isEnabled = false;
 
             InputStream defConfigStream = getResource("config.yml");
             if (defConfigStream != null) {
-                YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+                YamlConfiguration defConfig = new YamlConfiguration();
+                try {
+                    defConfig.load(new InputStreamReader(defConfigStream));
+                } catch (IOException | InvalidConfigurationException e) {
+                    e.printStackTrace();
+                    return;
+                }
 
                 newConfig.setDefaults(defConfig);
             }
         } else {
             InputStream defConfigStream = getResource("config.yml");
             if (defConfigStream != null) {
-                newConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+                newConfig = new YamlConfiguration();
+                try {
+                    newConfig.load(new InputStreamReader(defConfigStream));
+                } catch (IOException | InvalidConfigurationException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

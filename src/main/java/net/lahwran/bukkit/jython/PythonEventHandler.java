@@ -8,10 +8,7 @@ import java.util.logging.Level;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.PluginManager;
-import org.python.core.PyFunction;
-import org.python.core.PyMethod;
 import org.python.core.PyObject;
-import org.python.core.PyStaticMethod;
 
 /**
  * Class to wrap python functions so they can be used to handle events

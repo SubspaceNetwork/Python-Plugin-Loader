@@ -4,7 +4,6 @@
 package net.lahwran.bukkit.jython;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,20 +12,14 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.python.core.Py;
-import org.python.core.PyBoolean;
-import org.python.core.PyBuiltinClassMethodNarrow;
-import org.python.core.PyBuiltinMethod;
-import org.python.core.PyClassMethod;
 import org.python.core.PyException;
 import org.python.core.PyFunction;
 import org.python.core.PyList;
 import org.python.core.PyObject;
 import org.python.core.PyString;
-import org.python.core.PyTuple;
 import org.python.core.PyType;
 
 import com.master.bukkit.python.ReflectionHelper;
@@ -55,17 +48,17 @@ public class PythonHooks {
     /**
      * List of handlers to register
      */
-    ArrayList<PythonEventHandler> eventhandlers = new ArrayList<PythonEventHandler>();
+    ArrayList<PythonEventHandler> eventhandlers = new ArrayList<>();
 
     /**
      * List of handlers to register
      */
-    ArrayList<PythonCommandHandler> commandhandlers = new ArrayList<PythonCommandHandler>();
+    ArrayList<PythonCommandHandler> commandhandlers = new ArrayList<>();
     
     /**
      * List of custom events
      */
-    Map<String, Class<? extends Event>> customEvents = new HashMap<String, Class<? extends Event>>();
+    Map<String, Class<? extends Event>> customEvents = new HashMap<>();
 
     /**
      * Plugin description to modify when registering commands
@@ -101,7 +94,7 @@ public class PythonHooks {
                 return;
         }
 
-        Map<String, Object> commandmap = new HashMap<String, Object>();
+        Map<String, Object> commandmap = new HashMap<>();
         if (desc != null)
             commandmap.put("description", desc);
         if (usage != null)
@@ -118,11 +111,11 @@ public class PythonHooks {
     void doRegistrations(PythonPlugin plugin) {
         frozen = true;
         PluginManager pm = plugin.getServer().getPluginManager();
-        for (int i=0; i<eventhandlers.size(); i++) {
-            eventhandlers.get(i).register(pm, plugin);
+        for (PythonEventHandler eventhandler : eventhandlers) {
+            eventhandler.register(pm, plugin);
         }
-        for (int i=0; i<commandhandlers.size(); i++) {
-            commandhandlers.get(i).register(plugin);
+        for (PythonCommandHandler commandhandler : commandhandlers) {
+            commandhandler.register(plugin);
         }
     }
 
@@ -149,7 +142,7 @@ public class PythonHooks {
     public void registerEvent(PyObject handler, PyString type, PyString priority) {
         try {
             String clazz = type.asString();
-            Class<?> event = null;
+            Class<?> event;
 
             if(clazz.contains(".")) {
                 try {
@@ -295,7 +288,7 @@ public class PythonHooks {
     public PyObject command(PyObject args[], String keywords[]) {
         int kwdelta = args.length - keywords.length;
         if (args.length == 1 && args[0].isCallable()) {
-                registerCommand((PyFunction) args[0]);
+                registerCommand(args[0]);
                 return args[0];
         } else if (kwdelta == 1 || kwdelta == 0) {
 
@@ -305,14 +298,21 @@ public class PythonHooks {
             PyObject tabComplete = null;
             for (int i = kwdelta; i < args.length; i++) {
                 String keyword = keywords[i - kwdelta];
-                if (keyword.equals("desc") || keyword.equals("description"))
-                    desc = args[i].toString();
-                else if (keyword.equals("usage"))
-                    usage = args[i].toString();
-                else if (keyword.equals("aliases"))
-                    aliases = new PyList(args[i]);
-                else if (keyword.equals("onTabComplete"))
-                    tabComplete = args[i];
+                switch (keyword) {
+                    case "desc":
+                    case "description":
+                        desc = args[i].toString();
+                        break;
+                    case "usage":
+                        usage = args[i].toString();
+                        break;
+                    case "aliases":
+                        aliases = new PyList(args[i]);
+                        break;
+                    case "onTabComplete":
+                        tabComplete = args[i];
+                        break;
+                }
             }
             final String name;
             if (kwdelta == 1)

@@ -21,7 +21,7 @@ public class PythonListener implements Listener {
     /**
      * handlers registered that this listener needs to handle
      */
-    HashMap<Class<? extends Event>, Set<PythonEventHandler>> handlers = new HashMap<Class<? extends Event>, Set<PythonEventHandler>>();
+    HashMap<Class<? extends Event>, Set<PythonEventHandler>> handlers = new HashMap<>();
 
     /*
      * Handle an event. Depends on jython being smart enough to cast the event
@@ -47,7 +47,7 @@ public class PythonListener implements Listener {
         Set<PythonEventHandler> set = this.handlers.get(type);
 
         if(set == null) {
-            set = new HashSet<PythonEventHandler>();
+            set = new HashSet<>();
             handlers.put(type, set);
         }
 

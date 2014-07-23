@@ -111,13 +111,7 @@ public class PythonLoader extends JavaPlugin {
                     if (match.find()) {
                         try {
                             pm.loadPlugin(file);
-                        } catch (InvalidPluginException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (InvalidDescriptionException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (UnknownDependencyException e) {
+                        } catch (InvalidPluginException | InvalidDescriptionException | UnknownDependencyException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }

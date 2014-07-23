@@ -45,7 +45,6 @@ public abstract class PluginDataFile {
 
     /**
      * Use this to reload any files.
-     * @author gdude2002
      * @throws IOException thrown if reloading fails
      */
     public void reload() throws IOException {

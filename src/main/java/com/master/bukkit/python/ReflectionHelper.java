@@ -127,9 +127,7 @@ public class ReflectionHelper {
      */
     public static boolean isJavaPluginLoaded(PluginManager pm, String name) {
         getJavaLoaders(pm);
-        if (javaLoaders == null)
-            return false;
-        return javaLoaders.containsKey(name);
+        return javaLoaders != null && javaLoaders.containsKey(name);
     }
 
 
