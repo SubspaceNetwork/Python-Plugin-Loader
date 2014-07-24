@@ -15,17 +15,13 @@ Dev builds for this fork can be found [here](http://bamboo.gserv.me/browse/PLUG-
 Using the plugin loader
 -----------------------
 
-Building
-********
-
+### Building
 
 1. Get Gradle.
-2. Run gradle clean build
+2. Run `gradle clean build`
 3. Your product will be in build/lib/
 
-
-Running
-*******
+### Running
 
 0. Ensure you are using a bukkit build that uses
    https://github.com/Bukkit/Bukkit/pull/335 - otherwise, only some of your
@@ -34,8 +30,7 @@ Running
 2. Put jython.jar in your bukkit/lib/ dir
 3. [Re-]Start bukkit
 
-Using plugins
-*************
+### Using plugins
 
 1. Stick the plugin.pyp in your bukkit/plugins/ dir
 2. [Re-]Start bukkit
@@ -229,8 +224,7 @@ like this:
     pyplugin = PythonPlugin();
 
 
-Commands
-********
+### Commands
 
 Commands are added with the hook.command decorator. It can be used in both
 no-arguments mode and in arguments mode. In no-arguments mode, it uses the
@@ -293,8 +287,7 @@ Note that you cannot do @hook.command():
 
 
 
-Events
-******
+### Events
 
 Events are registered with the hook.event decorator. This decorator may only
 be used with arguments. It takes two arguments: the event type and priority.
@@ -335,8 +328,7 @@ examples:
     def onPlayerChat(event):
         event.getPlayer().sendMessage("u r gey")
 
-Enable and Disable
-******************
+### Enable and Disable
 
 Functions decorated with hook.enable and hook.disable are called when your
 plugin is activated and deactivated, respectively. if you want your plugin to
@@ -353,8 +345,7 @@ examples:
     def onDisable():
         print "disabled!"
 
-Accessing the plugin object
-***************************
+### Accessing the plugin object
 
 The plugin instance is loaded into your globals as pyplugin.
 
@@ -379,8 +370,7 @@ Specifications for sample plugin
 Sample plugin using decorator api
 ---------------------------------
 
-main.py
-*******
+### main.py
 
 
     __plugin_name__ = "SamplePlugin"
@@ -413,8 +403,7 @@ main.py
 Sample plugin using class api
 -----------------------------
 
-plugin.yml
-**********
+### plugin.yml
 
     name: SamplePlugin
     main: SampleClass
@@ -424,8 +413,7 @@ plugin.yml
             description: send a sample message
             usage: /<command>
 
-plugin.py
-*********
+### plugin.py
 
     from org.bukkit.event.player import PlayerListener
     from org.bukkit.event.Event import Type, Priority
