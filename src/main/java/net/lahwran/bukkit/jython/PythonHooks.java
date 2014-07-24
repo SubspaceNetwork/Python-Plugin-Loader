@@ -146,6 +146,7 @@ public class PythonHooks {
      * @param type Event type string
      * @param priority Event priority string
      */
+    @SuppressWarnings("unchecked")
     public void registerEvent(PyObject handler, PyString type, PyString priority) {
         try {
             String clazz = type.asString();
@@ -340,7 +341,8 @@ public class PythonHooks {
             throw Py.TypeError("you gave command() bad arguments, but lahwran was tired when he wrote this, so you don't get a helpful error message. sucks to be you.");
         }
     }
-    
+
+    @SuppressWarnings("unchecked")
     public PyObject custom_event(PyType event) {        
         Class<?> proxy = event.getProxyType();
         
