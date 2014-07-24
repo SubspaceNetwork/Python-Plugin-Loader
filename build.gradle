@@ -44,11 +44,12 @@ dependencies {
 
 jar {
     from sourceSets.main.allJava
-    archiveName = "PyPluginLoader-${version}.jar"
+    archiveName = "PyPluginLoader-${version}-slim.jar"
+}
 
-//    into('lib') {
-//        from configurations.extraLibs
-//    }
+fatJar {
+    from sourceSets.main.allJava
+    archiveName = "PyPluginLoader-${version}.jar"
 }
 
 artifacts {
