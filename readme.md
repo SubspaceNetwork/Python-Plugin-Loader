@@ -1,8 +1,6 @@
 Python Plugin Loader
 ====================
 
------
-
 **Please note: The decorator API appears to be broken. Please write your plugins using the
   class-based API!**
 
