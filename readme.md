@@ -377,7 +377,7 @@ Sample plugin using decorator api
 
 ### main.py
 
-
+```python
     __plugin_name__ = "SamplePlugin"
     __plugin_version__ = "0.1-dev"
     
@@ -404,12 +404,14 @@ Sample plugin using decorator api
         return True
     
     print "sample plugin main file run"
+```
 
 Sample plugin using class api
 -----------------------------
 
 ### plugin.yml
 
+```yaml
     name: SamplePlugin
     main: SampleClass
     version: 0.1-dev
@@ -417,9 +419,11 @@ Sample plugin using class api
         samplecommand:
             description: send a sample message
             usage: /<command>
+```
 
 ### plugin.py
 
+```python
     from org.bukkit.event.player import PlayerListener
     from org.bukkit.event.Event import Type, Priority
     
@@ -454,3 +458,4 @@ Sample plugin using class api
             event.getPlayer().sendMessage(msg)
     
     print "sample plugin main file run"
+```
