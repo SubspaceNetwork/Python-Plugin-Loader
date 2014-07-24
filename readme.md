@@ -1,6 +1,13 @@
 Python Plugin Loader
 ====================
 
+-----
+
+**Please note: The decorator API appears to be broken. Please write your plugins using the
+  class-based API!**
+
+-----
+
 If there are changes you want made to this plugin, please open an issue instead of forking. The only
 reason I forked this plugin was because the developers had abandoned it - I, however, am trying
 to keep it maintained, so there's no need to fork for a feature, unless you're thinking of
