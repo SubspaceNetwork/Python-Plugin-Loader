@@ -66,17 +66,21 @@ See the "Sample plugin using class api" section for a more detailed example.
 
 your plugin.yml:
 
-    name: MyHawtPlugin
-    main: MyPlugin
-    version: 0.1
+```yaml
+name: MyHawtPlugin
+main: MyPlugin
+version: 0.1
+```
 
 your plugin.py:
 
-    class SampleClass(PythonPlugin):
-        def onEnable():
-            print "enabled!"
-        def onDisable():
-            print "disabled!"
+```python
+class SampleClass(PythonPlugin):
+    def onEnable():
+        print "enabled!"
+    def onDisable():
+        print "disabled!"
+```
 
 Decorator API
 -------------
@@ -86,29 +90,33 @@ classes:
 
 your plugin.yml:
 
-    name: MyHawtPlugin
-    main: main.py
-    version: 0.1
+```yaml
+name: MyHawtPlugin
+main: main.py
+version: 0.1
+```
 
 your main.py:
 
-    print "main.py run"
-    
-    @hook.enable
-    def onenable():
-        print "main.py enabled"
-    
-    @hook.disable
-    def ondisable():
-        print "main.py disabled"
-    
-    @hook.event("player.PlayerJoinEvent", "normal")
-    def playerjoin(event):
-        event.getPlayer().sendMessage("Hello from python")
-    
-    @hook.command
-    def example(sender, command, label, args):
-        sender.sendMessage("you just used command /example!")
+```python
+print "main.py run"
+
+@hook.enable
+def onenable():
+    print "main.py enabled"
+
+@hook.disable
+def ondisable():
+    print "main.py disabled"
+
+@hook.event("player.PlayerJoinEvent", "normal")
+def playerjoin(event):
+    event.getPlayer().sendMessage("Hello from python")
+
+@hook.command
+def example(sender, command, label, args):
+    sender.sendMessage("you just used command /example!")
+```
 
 See the "Sample plugin using decorator api" section for a more detailed example.
 
@@ -169,13 +177,15 @@ used in all java plugins (as it is the only option for java plugins). as such,
 opening up java plugin jars is a good way to learn what can go in it. Here is
 an example of plugin.yml:
 
-    name: SamplePlugin
-    main: SampleClass
-    version: 0.1-dev
-    commands:
-        samplecommand:
-            description: send a sample message
-            usage: /<command>
+```yaml
+name: SamplePlugin
+main: SampleClass
+version: 0.1-dev
+commands:
+    samplecommand:
+        description: send a sample message
+        usage: /<command>
+```
 
 The plugin filename is automatically used if no plugin.yml is found. The
 extension is removed from the filename and used as the "name" field.
@@ -189,10 +199,12 @@ filename case. It is recommended that you set these values at the top of your
 main python file. None of these values are required. These are the values you
 can set:
 
-    __plugin_name__ = "SamplePlugin"
-    __plugin_version__ = "0.1-dev"
-    __plugin_mainclass__ = "SampleClass"
-    __plugin_website__ = "http://example.com/sampleplugin"
+```python
+__plugin_name__ = "SamplePlugin"
+__plugin_version__ = "0.1-dev"
+__plugin_mainclass__ = "SampleClass"
+__plugin_website__ = "http://example.com/sampleplugin"
+```
 
 note that plugin_mainclass can only be used to set the main class; it
 cannot be used to set the main python file, as it must be contained in the
@@ -218,16 +230,17 @@ pyplugin is also inserted into your globals, so that it may be accessed from
 functions. Some other stuff is also preloaded for you. The code runs something
 like this:
 
-    hook = PythonHooks()
-    info = getPluginDescription()
-    
-    from pythonplugin import PythonPlugin
-    
-    # Your code happens here
-    
-    updateInfo()
-    pyplugin = PythonPlugin();
+```python
+hook = PythonHooks()
+info = getPluginDescription()
 
+from pythonplugin import PythonPlugin
+
+# Your code happens here
+
+updateInfo()
+pyplugin = PythonPlugin();
+```
 
 ### Commands
 
@@ -244,10 +257,13 @@ command already exists, and it will not overwrite the existing metadata.
 However, if you provide metadata, then it will bail out if the command already
 exists.
 
-The decorated function may have one of these "signatures":
-def func(sender, command, label, args):
-def func(sender, label, args):
-def func(sender, args):
+The decorated function may have one of these signatures:
+
+```python
+func(sender, command, label, args)
+func(sender, label, args)
+func(sender, args)
+```
 
 Sender is the originator of the command; this might be a player, the console,
 or something plugin-created. Command is the object representing this command;
@@ -263,33 +279,36 @@ printer.
 
 some examples:
 
-    @hook.command
-    def samplecommand(sender, args):
-        sender.sendMessage("You just used the sample command!")
-        return True
-    
-    @hook.command
-    def samplecommand2(sender, label, args):
-        sender.sendMessage(label + " args: " + " ".join(args))
-        return True
-    
-    @hook.command
-    def samplecommand3(sender, command, label, args):
-        sender.sendMessage("what would you EVER use command for? I'm sure there is something...")
-        return True
-    
-    @hook.command("samplecommand4", desc="sexeh command", usage="/<command>",
-                      aliases=["samplecommand5", "samplecommand6"])
-    def samplecommand4(sender, label, args):
-        sender.sendMessage("You just used teh sexeh command! "+label)
-        return True
+```python
+@hook.command
+def samplecommand(sender, args):
+    sender.sendMessage("You just used the sample command!")
+    return True
+
+@hook.command
+def samplecommand2(sender, label, args):
+    sender.sendMessage(label + " args: " + " ".join(args))
+    return True
+
+@hook.command
+def samplecommand3(sender, command, label, args):
+    sender.sendMessage("what would you EVER use command for? I'm sure there is something...")
+    return True
+
+@hook.command("samplecommand4", desc="sexeh command", usage="/<command>",
+                  aliases=["samplecommand5", "samplecommand6"])
+def samplecommand4(sender, label, args):
+    sender.sendMessage("You just used teh sexeh command! "+label)
+    return True
+```
 
 Note that you cannot do @hook.command():
 
-    @hook.command()
-    def thisWillError(sender, args):
-        print "this plugin will not load."
-
+```python
+@hook.command()
+def thisWillError(sender, args):
+    print "this plugin will not load."
+```
 
 
 ### Events
@@ -325,13 +344,15 @@ the event, but to act on it, so what they think is forward is really reverse.
 
 examples:
 
-    @hook.event("player.PlayerJoinEvent", "normal")
-    def onPlayerJoin(event):
-        event.getPlayer().sendMessage("hello from python!")
-    
-    @hook.event("player.PlayerChatEvent", "monitor")
-    def onPlayerChat(event):
-        event.getPlayer().sendMessage("u r gey")
+```python
+@hook.event("player.PlayerJoinEvent", "normal")
+def onPlayerJoin(event):
+    event.getPlayer().sendMessage("hello from python!")
+
+@hook.event("player.PlayerChatEvent", "monitor")
+def onPlayerChat(event):
+    event.getPlayer().sendMessage("hai")
+```
 
 ### Enable and Disable
 
@@ -341,14 +362,15 @@ be properly reloadable, you should clean up all your objects in your
 hook.disable function.
 
 examples:
+```python
+@hook.enable
+def onEnable():
+    print "enabled!"
 
-    @hook.enable
-    def onEnable():
-        print "enabled!"
-    
-    @hook.disable
-    def onDisable():
-        print "disabled!"
+@hook.disable
+def onDisable():
+    print "disabled!"
+```
 
 ### Accessing the plugin object
 
@@ -378,32 +400,32 @@ Sample plugin using decorator api
 ### main.py
 
 ```python
-    __plugin_name__ = "SamplePlugin"
-    __plugin_version__ = "0.1-dev"
-    
-    @hook.enable
-    def onEnable():
-        print "sample plugin enabled"
-    
-    @hook.disable
-    def onDisable():
-        print "sample plugin disabled"
-    
-    @hook.event("player_join", "normal")
-    def onPlayerJoin(event):
-        msg = "welcome from the sample plugin, %s" % event.getPlayer().getName()
-        print msg
-        event.getPlayer().sendMessage(msg)
-    
-    @hook.command("samplecommand", usage="/<command>", 
-                    desc="send a sample message")
-    def onSampleCommand(sender, command, label, args):
-        msg = "sample plugin command"
-        print msg
-        sender.sendMessage(msg)
-        return True
-    
-    print "sample plugin main file run"
+__plugin_name__ = "SamplePlugin"
+__plugin_version__ = "0.1-dev"
+
+@hook.enable
+def onEnable():
+    print "sample plugin enabled"
+
+@hook.disable
+def onDisable():
+    print "sample plugin disabled"
+
+@hook.event("player_join", "normal")
+def onPlayerJoin(event):
+    msg = "welcome from the sample plugin, %s" % event.getPlayer().getName()
+    print msg
+    event.getPlayer().sendMessage(msg)
+
+@hook.command("samplecommand", usage="/<command>",
+                desc="send a sample message")
+def onSampleCommand(sender, command, label, args):
+    msg = "sample plugin command"
+    print msg
+    sender.sendMessage(msg)
+    return True
+
+print "sample plugin main file run"
 ```
 
 Sample plugin using class api
@@ -412,50 +434,50 @@ Sample plugin using class api
 ### plugin.yml
 
 ```yaml
-    name: SamplePlugin
-    main: SampleClass
-    version: 0.1-dev
-    commands:
-        samplecommand:
-            description: send a sample message
-            usage: /<command>
+name: SamplePlugin
+main: SampleClass
+version: 0.1-dev
+commands:
+    samplecommand:
+        description: send a sample message
+        usage: /<command>
 ```
 
 ### plugin.py
 
 ```python
-    from org.bukkit.event.player import PlayerListener
-    from org.bukkit.event.Event import Type, Priority
-    
-    class SampleClass(PythonPlugin):
-        def __init__(self):
-            self.listener = SampleListener(self)
-            print "sample plugin main class instantiated"
-    
-        def onEnable(self):
-            pm = self.getServer().getPluginManager()
-            pm.registerEvent(Type.PLAYER_PICKUP_ITEM, listener, Priority.Normal, self)
-            pm.registerEvent(Type.PLAYER_RESPAWN, listener, Priority.Normal, self)
-            
-            print "sample plugin enabled"
-        
-        def onDisable(self):
-            print "sample plugin disabled"
-        
-        def onCommand(self, sender, command, label, args):
-            msg = "sample plugin command"
-            print msg
-            sender.sendMessage(msg)
-            return True
-    
-    class SampleListener(PlayerListener):
-        def __init__(self, plugin):
-            self.plugin = plugin
-        
-        def onPlayerJoin(self, event):
-            msg = "welcome from the sample plugin, %s" % event.getPlayer().getName()
-            print msg
-            event.getPlayer().sendMessage(msg)
-    
-    print "sample plugin main file run"
+from org.bukkit.event.player import PlayerListener
+from org.bukkit.event.Event import Type, Priority
+
+class SampleClass(PythonPlugin):
+    def __init__(self):
+        self.listener = SampleListener(self)
+        print "sample plugin main class instantiated"
+
+    def onEnable(self):
+        pm = self.getServer().getPluginManager()
+        pm.registerEvent(Type.PLAYER_PICKUP_ITEM, listener, Priority.Normal, self)
+        pm.registerEvent(Type.PLAYER_RESPAWN, listener, Priority.Normal, self)
+
+        print "sample plugin enabled"
+
+    def onDisable(self):
+        print "sample plugin disabled"
+
+    def onCommand(self, sender, command, label, args):
+        msg = "sample plugin command"
+        print msg
+        sender.sendMessage(msg)
+        return True
+
+class SampleListener(PlayerListener):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def onPlayerJoin(self, event):
+        msg = "welcome from the sample plugin, %s" % event.getPlayer().getName()
+        print msg
+        event.getPlayer().sendMessage(msg)
+
+print "sample plugin main file run"
 ```
