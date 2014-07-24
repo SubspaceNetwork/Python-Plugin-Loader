@@ -20,6 +20,7 @@ import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.UnknownDependencyException;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.python.core.*;
 
 /**
  * Java plugin to initialize python plugin loader and provide it with a little moral boost.

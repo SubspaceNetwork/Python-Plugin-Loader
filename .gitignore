@@ -13,3 +13,6 @@ build/
 # IDEA
 .idea/
 *.iml
+
+# Bukkit
+bukkit/

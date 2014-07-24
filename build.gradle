@@ -4,9 +4,22 @@ apply plugin: 'build-announcements'
 apply plugin: 'maven'
 apply plugin: 'ivy-publish'
 
+
 sourceCompatibility = 1.7
 version = '0.3.5'
 group = "org.masteroftime"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2-rc2'
+    }
+}
+
+apply plugin: 'fatjar'
 
 repositories {
     flatDir {
@@ -26,16 +39,16 @@ configurations {
     extraLibs
 }
 dependencies {
-    extraLibs 'org.python:jython-standalone:2.5.3'
+//    extraLibs 'org.python:jython-standalone:2.7-b2'
 }
 
 jar {
     from sourceSets.main.allJava
     archiveName = "PyPluginLoader-${version}.jar"
 
-    into('lib') {
-        from configurations.extraLibs
-    }
+//    into('lib') {
+//        from configurations.extraLibs
+//    }
 }
 
 artifacts {
@@ -67,6 +80,10 @@ publishing {
 }
 
 dependencies {
-    compile 'org.python:jython-standalone:2.5.3'
-    compile 'org.bukkit:bukkit:1.7.9-R0.2'
+    compile 'org.python:jython-standalone:2.7-b2'
+    compile 'org.bukkit:bukkit:1.7.9-R0.2', {
+        ext {
+            fatJarExclude = true
+        }
+    }
 }
