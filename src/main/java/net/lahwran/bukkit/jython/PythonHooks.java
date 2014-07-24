@@ -200,7 +200,7 @@ public class PythonHooks {
 
 
     /**
-     * Register a command with no extra metadata
+     * Register a command
      * @param func function to set as handler
      * @param name name to use
      * @param usage metadata
