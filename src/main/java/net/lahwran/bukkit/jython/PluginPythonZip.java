@@ -6,6 +6,7 @@ package net.lahwran.bukkit.jython;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.zip.ZipEntry;
