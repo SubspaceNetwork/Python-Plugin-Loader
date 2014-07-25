@@ -4,6 +4,9 @@ Python Plugin Loader
 **Please note: The decorator API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1). Please write your plugins using the
   class-based API!**
 
+**This plugin requires Java 7! If you're not using Java 7, go set it up, Java 6 has been unsupported since November 
+2012.**
+
 -----
 
 This is a fork of masteroftime's Python-Plugin-Loader. The original developers have abandoned it and do not update it anymore.  
@@ -11,6 +14,8 @@ This project shall be used to maintain it and to keep development ongoing.
 If there are changes you would like in this plugin, please [open an issue](https://github.com/gdude2002/Python-Plugin-Loader/issues/new) or make a pull request, instead of making your own fork.
 
 Take a look at the [wiki](https://github.com/gdude2002/Python-Plugin-Loader/wiki) for information.
+We also have [JavaDocs](http://cherry.gserv.me/docs/org.masteroftime.PyPluginLoader/). Sorry, the page titles are wrong 
+right now.
 
 The Python Plugin Loader is a plugin loader for Bukkit to load Python plugins
 via Jython.
