@@ -1,15 +1,16 @@
 Python Plugin Loader
 ====================
 
-**Please note: The decorator API appears to be broken. Please write your plugins using the
+**Please note: The decorator API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1). Please write your plugins using the
   class-based API!**
 
 -----
 
-If there are changes you want made to this plugin, please open an issue instead of forking. The only
-reason I forked this plugin was because the developers had abandoned it - I, however, am trying
-to keep it maintained, so there's no need to fork for a feature, unless you're thinking of
-submitting a pull request.
+This is a fork of masteroftime's Python-Plugin-Loader. The original developers have abandoned it and do not update it anymore.  
+This project shall be used to maintain it and to keep development ongoing.  
+If there are changes you would like in this plugin, please [open an issue](https://github.com/gdude2002/Python-Plugin-Loader/issues/new) or make a pull request, instead of making your own fork.
+
+Take a look at the [wiki](https://github.com/gdude2002/Python-Plugin-Loader/wiki) for information.
 
 The Python Plugin Loader is a plugin loader for Bukkit to load Python plugins
 via Jython.
@@ -22,23 +23,22 @@ Using the plugin loader
 
 ### Building
 
-1. Get Gradle.
-2. Run `gradle clean build`
-3. Your product will be in build/lib/
+0. Get Gradle.
+0. Run `gradle clean build`
+0. Your product will be in build/lib/
 
 ### Running
 
 0. Ensure you are using a bukkit build that uses
    https://github.com/Bukkit/Bukkit/pull/335 - otherwise, only some of your
    plugins will work.
-1. Put PyPluginLoader-<version>.jar in your bukkit/plugins/ dir
-2. Put jython.jar in your bukkit/lib/ dir
-3. [Re-]Start bukkit
+0. Put PyPluginLoader-<version>.jar in your bukkit/plugins/ dir
+0. [Re-]Start bukkit
 
 ### Using plugins
 
-1. Stick the plugin.pyp in your bukkit/plugins/ dir
-2. [Re-]Start bukkit
+0. Stick the plugin.pyp in your bukkit/plugins/ dir
+0. [Re-]Start bukkit
 
 Writing plugins
 ===============
