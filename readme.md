@@ -19,22 +19,18 @@ since November 2012.**
 -----
 
 This is a fork of masteroftime's Python-Plugin-Loader. The original developers have abandoned it and do not update
-it any more. This project will be used to maintain it and to keep things up to date..
+it any more. This project will be used to maintain it and to keep things up to date. This project is a plugin loader
+for Bukkit to load Python plugins using Jython 2.7.
 
-If there are changes you would like to see, please
-[open an issue](https://github.com/gdude2002/Python-Plugin-Loader/issues/new)
-or submit a pull request, instead of making your own fork.
-
-Take a look at the [wiki](https://github.com/gdude2002/Python-Plugin-Loader/wiki) for some extra information.
-Please note that the wiki is still under development!
-
-We also have [JavaDocs](http://cherry.gserv.me/docs/org.masteroftime.PyPluginLoader/). Sorry, the page titles
-are incorrect at the moment.
-
-The Python Plugin Loader is a plugin loader for Bukkit to load Python plugins using Jython 2.7.
-
-Dev builds for this fork can be found [here](http://bamboo.gserv.me/browse/PLUG-PYPL). As of writing,
-there are no stable builds of this fork. Caveat emptor!
+* If there are changes you would like to see, please
+  [open an issue](https://github.com/gdude2002/Python-Plugin-Loader/issues/new)
+  or submit a pull request, instead of making your own fork.
+* Take a look at the [wiki](https://github.com/gdude2002/Python-Plugin-Loader/wiki) for some extra information.
+  Please note that the wiki is still under development!
+* We also have [JavaDocs](http://cherry.gserv.me/docs/org.masteroftime.PyPluginLoader/). Sorry, the page titles
+  are incorrect at the moment.
+*Dev builds for this fork can be found [here](http://bamboo.gserv.me/browse/PLUG-PYPL). As of writing,
+  there are no stable builds of this fork. Caveat emptor!
 
 
 Using the plugin loader
