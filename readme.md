@@ -4,23 +4,37 @@ Python Plugin Loader
 **Please note: The decorator API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1). Please write your plugins using the
   class-based API!**
 
-**This plugin requires Java 7! If you're not using Java 7, go set it up, Java 6 has been unsupported since November 
-2012.**
+An update on the above: I'm not really sure we should *have* a decorator API, as it isn't in line with the Java way
+of doing things, and we are essentially working with Java using Python's syntax here. Instead, I highly recommend
+that you use the class-based API instead. Depending on whether I can fix it, the decorator API may be removed in a
+later release.
+
+You have been warned.
 
 -----
 
-This is a fork of masteroftime's Python-Plugin-Loader. The original developers have abandoned it and do not update it anymore.  
-This project shall be used to maintain it and to keep development ongoing.  
-If there are changes you would like in this plugin, please [open an issue](https://github.com/gdude2002/Python-Plugin-Loader/issues/new) or make a pull request, instead of making your own fork.
+**This plugin requires Java 7! If you're not using Java 7, go install it, Java 6 has been unsupported
+since November 2012.**
 
-Take a look at the [wiki](https://github.com/gdude2002/Python-Plugin-Loader/wiki) for information.
-We also have [JavaDocs](http://cherry.gserv.me/docs/org.masteroftime.PyPluginLoader/). Sorry, the page titles are wrong 
-right now.
+-----
 
-The Python Plugin Loader is a plugin loader for Bukkit to load Python plugins
-via Jython.
+This is a fork of masteroftime's Python-Plugin-Loader. The original developers have abandoned it and do not update
+it any more. This project will be used to maintain it and to keep things up to date..
 
-Dev builds for this fork can be found [here](http://bamboo.gserv.me/browse/PLUG-PYPL).
+If there are changes you would like to see, please
+[open an issue](https://github.com/gdude2002/Python-Plugin-Loader/issues/new)
+or submit a pull request, instead of making your own fork.
+
+Take a look at the [wiki](https://github.com/gdude2002/Python-Plugin-Loader/wiki) for some extra information.
+Please note that the wiki is still under development!
+
+We also have [JavaDocs](http://cherry.gserv.me/docs/org.masteroftime.PyPluginLoader/). Sorry, the page titles
+are incorrect at the moment.
+
+The Python Plugin Loader is a plugin loader for Bukkit to load Python plugins using Jython 2.7.
+
+Dev builds for this fork can be found [here](http://bamboo.gserv.me/browse/PLUG-PYPL). As of writing,
+there are no stable builds of this fork. Caveat emptor!
 
 
 Using the plugin loader
@@ -28,29 +42,29 @@ Using the plugin loader
 
 ### Building
 
-0. Get Gradle.
-0. Run `gradle clean build`
-0. Your product will be in build/lib/
+* Get Gradle.
+* Run `gradle clean build`
+* Your product will be in build/lib/
 
 ### Running
 
-0. Ensure you are using a bukkit build that uses
-   https://github.com/Bukkit/Bukkit/pull/335 - otherwise, only some of your
-   plugins will work.
-0. Put PyPluginLoader-<version>.jar in your bukkit/plugins/ dir
-0. [Re-]Start bukkit
+* Ensure you are using a Bukkit build supporting **Minecraft 1.5.x** or later
+* Put `PyPluginLoader-<version>.jar` into your `plugins/` folder
+* [Re-]Start bukkit
 
-### Using plugins
+### Using Python plugins
 
-0. Stick the plugin.pyp in your bukkit/plugins/ dir
-0. [Re-]Start bukkit
+* Put the `plugin.pyp` file into your `plugins/` folder
+* (Re)start Bukkit
 
 Writing plugins
 ===============
 
-Writing plugins with PythonLoader is fairly easy. There are two apis, both
+Writing plugins with PythonLoader is fairly easy. There are two APIs, both
 of which are pretty simple; The first is the bukkit api, which this loader
 lightly wraps; and the other is a decorators-and-functions api.
+
+**Note: The decorator API is [broken at the moment](https://github.com/gdude2002/Python-Plugin-Loader/issues/1).**
 
 Basics
 ------
@@ -58,18 +72,26 @@ Basics
 Your plugins go in either a zip or a directory (known to windows users as "folders");
 that zip or directory name must match this regex: \.py\.?(dir|zip|p|pl|plug|plugin)$
 
+For example:
 
-Class (bukkit standard) API
+* plugin.pyp
+* plugin.py.zip
+* plugin.py.plugin
+
+And so on.
+
+
+Class (standard Bukkit API
 ---------------------------
 
-To write a plugin with this api is almost identical to writing one in java, so
+To writing a plugin with this API is almost identical to writing one in Java - so
 much so that you can safely use the documentation on how to write a java
-plugin; simply translate it into python. the java2py tool may even work on
-existing java plugins (though no promises).
+plugin, simply translating it into python. The java2py tool might even work on existing
+plugins, though we make no promises of that and it's unsupported.
 
-See the "Sample plugin using class api" section for a more detailed example.
+See the "Sample plugin using class API" section for a more detailed example.
 
-your plugin.yml:
+`plugin.yml`:
 
 ```yaml
 name: MyHawtPlugin
@@ -77,7 +99,7 @@ main: MyPlugin
 version: 0.1
 ```
 
-your plugin.py:
+`plugin.py`:
 
 ```python
 class SampleClass(PythonPlugin):
@@ -91,9 +113,10 @@ Decorator API
 -------------
 
 Writing a plugin with this api is much more concise, as you need to declare no
-classes:
+classes. **But it's [not working right now](https://github.com/gdude2002/Python-Plugin-Loader/issues/1)**,
+so use the class-based API instead.
 
-your plugin.yml:
+`plugin.yml`:
 
 ```yaml
 name: MyHawtPlugin
@@ -101,21 +124,21 @@ main: main.py
 version: 0.1
 ```
 
-your main.py:
+`main.py`:
 
 ```python
 print "main.py run"
 
 @hook.enable
-def onenable():
+def onEnable():
     print "main.py enabled"
 
 @hook.disable
-def ondisable():
+def onDisable():
     print "main.py disabled"
 
 @hook.event("player.PlayerJoinEvent", "normal")
-def playerjoin(event):
+def playerJoin(event):
     event.getPlayer().sendMessage("Hello from python")
 
 @hook.command
@@ -123,7 +146,7 @@ def example(sender, command, label, args):
     sender.sendMessage("you just used command /example!")
 ```
 
-See the "Sample plugin using decorator api" section for a more detailed example.
+See the "Sample plugin using decorator API" section for a more detailed example.
 
 
 API Details
@@ -137,50 +160,50 @@ Plugin files
 
 Your plugin may go in:
 
-- A zip whos name ends in either .py.zip or .pyp
-- A directory whose name ends in .py.dir or \_py_dir (for windows users)
-- A python file (obviously, named .py)
+- A zip whose name ends in either `.py.zip` or `.pyp`
+- A directory whose name ends in `.py.dir` or `_py_dir` (for windows users)
+- A python file (obviously, ending in `.py`)
 
-Zips with the .pyp extension are recommended if you release any plugins. When
-you use a zip, your must specify your own metadata; it will not allow guessed
+Zips with the `.pyp` extension are recommended if you release any plugins. When
+you use a zip, your must specify your own metadata - it will not allow guessed
 metadata.
 
 When using a dir or a zip, your zip or dir must contain a main python file and
-optionally a plugin.yml containing metadata (see the following section). Your
-python main file normally should be named either plugin.py or main.py.
-plugin.py should generally be used when you are using the class api and main.py
-when using the decorator api. Under some conditions you may want to change the
-name of your main file (such as, other plugins needing to be able to import
-it). This is not recommended but is possible with the main field in the
+optionally a `plugin.yml` containing metadata (see the following section). Your
+python main file normally should be named either `plugin.py` or `main.py`.
+`plugin.py` should generally be used when you are using the class API and `main.py`
+when using the decorator API. Under some conditions you may want to change the
+name of your main file (For example, when other plugins need to be able to import
+it). This is not recommended - but is possible with the main field in the
 metadata.
 
-When using a single .py file in plugins, your single .py is your main python
-file. You cannot have a separate plugin.yml - if you want to have any special
+When using a single `.py` file in plugins, your single `.py` is your main python
+file. You cannot have a separate `plugin.yml` - if you want to have any special
 metadata, you will need a directory or zip plugin.
 
 Plugin metadata
 ---------------
 
 Plugins require metadata. The absolute minimum metadata is a name and a version.
-The location of your main file/class is also required, if you don't like
-defaults. The 'main' field of plugin metadata has special behavior:
+The location of your main file/class is also required, if you don't like the
+defaults. The 'main' field of the plugin metadata has some special behavior:
 
-- if the main is set in plugin.yml, it searches for the value set in main as
-   the main file before searching for the default file names. see "Main files".
-- the main is used to search for a main class before searching the default
+* If `main` is set in `plugin.yml`, it searches for the value set in main as
+   the main file before searching for the default file names - see "Main files".
+* `main` is used to search for a main class before searching the default
    class name.
 
 There are three places you can put this metadata. In order of quality:
 
-- plugin.yml
-- your main python file
-- your plugin filename
+* `plugin.yml`
+* Your main python file
+* Your plugin filename
 
-plugin.yml is the best as you are able to set all metadata fields that exist
-in bukkit, and should be used for all plugins that you release. plugin.yml is
-used in all java plugins (as it is the only option for java plugins). as such,
-opening up java plugin jars is a good way to learn what can go in it. Here is
-an example of plugin.yml:
+`plugin.yml` is the best as you are able to set all metadata fields that exist
+in Bukkit, and should be used for all plugins that you release. `plugin.yml` is
+used in all Java plugins (as it is the only option for Java plugins). As such,
+opening up Java plugin jars is a good way to learn what can go in it. Here is
+an example of a `plugin.yml`:
 
 ```yaml
 name: SamplePlugin
@@ -192,16 +215,16 @@ commands:
         usage: /<command>
 ```
 
-The plugin filename is automatically used if no plugin.yml is found. The
-extension is removed from the filename and used as the "name" field.
-The version field is set to "dev" (as this case should only occur when first
-creating a plugin). the main field is set to a default value that has no
+The plugin filename is automatically used if no `plugin.yml` is found. The
+extension is removed from the filename and used as the `name` field.
+The `version` field is set to `dev` (as this case should only occur when first
+creating a plugin). The `main` field is set to a default value that has no
 effect.
 
-The plugin main python file can be used if (and only if) you do not have a
-plugin.yml file, so that you can override the defaults set by the plugin
+The plugin's main Python file can be used if (and only if) you do not have a
+`plugin.yml` file, so that you can override the defaults set by the plugin
 filename case. It is recommended that you set these values at the top of your
-main python file. None of these values are required. These are the values you
+main Python file. None of these values are required. These are the values you
 can set:
 
 ```python
@@ -211,25 +234,25 @@ __plugin_mainclass__ = "SampleClass"
 __plugin_website__ = "http://example.com/sampleplugin"
 ```
 
-note that plugin_mainclass can only be used to set the main class; it
-cannot be used to set the main python file, as it must be contained in the
-main python file. if you want to change the main python file, you must have a
-plugin.yml.
+**Note:** Plugin_mainclass can only be used to set the main class; it
+cannot be used to set the main Python file, as it must be contained in the
+main Python file. if you want to change the main python file, you must have a
+`plugin.yml`.
 
 Summary of fields:
 
-- "main" - name of main python file or name of main class
-- "name" - name of plugin to show in /plugins list and such. used to name the
-   config directory. for this reason it must not equal the full name of the
+- `main` - name of main Python file or name of main class
+- `name` - name of plugin to show in the `/plugins` list and such. Used to name the
+   config directory. For this reason, it must not equal the full name of the
    plugin file.
-- "version" - version of plugin. shown in errors, and other plugins can access it
-- "website" - mainly for people reading the code
+- `version` - version of plugin. shown in errors, and other plugins can access it
+- `website` - mainly for people reading the code
 
 
 Decorator api
 -------------
 
-The decorator api preloads an object called "hook" into your interpreter. This
+The decorator API preloads an object called `hook` into your interpreter. This
 object contains the decorators you can use. After first run, an object called
 pyplugin is also inserted into your globals, so that it may be accessed from
 functions. Some other stuff is also preloaded for you. The code runs something
