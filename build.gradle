@@ -23,19 +23,6 @@ if (!f.exists()) {
     logger.info('Dependency already exists: prism-2.0.2.jar')
 }
 
-FileTree zip = zipTree('lib/Jynx-0.4.2-jython-py2.5.zip')
-
-copy {
-    from zip
-    into 'build/tmp/jynx'
-}
-
-FileTree tree = fileTree(dir: 'build/tmp/jynx/Jynx-0.4.2-jython-py2.5')
-
-tree.exclude("*.html")
-tree.exclude("setup.py")
-tree.exclude("PKG-INFO")
-
 buildscript {
     repositories {
         mavenCentral()
@@ -71,13 +58,11 @@ dependencies {
 
 jar {
     from sourceSets.main.allJava
-    from tree
     archiveName = "PyPluginLoader-${version}-slim.jar"
 }
 
 fatJar {
-    from sourceSets.main.allJava, tree
-    include "**/*"
+    from sourceSets.main.allJava
     archiveName = "PyPluginLoader-${version}.jar"
 }
 
@@ -116,4 +101,5 @@ dependencies {
             fatJarExclude = true
         }
     }
+    compile 'com.google.code.javaparser:javaparser:1.0.11'
 }
