@@ -102,4 +102,5 @@ dependencies {
         }
     }
     compile 'com.google.code.javaparser:javaparser:1.0.11'
+    compile 'commons-io:commons-io:2.4'
 }

@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 
 import net.lahwran.bukkit.jython.PythonPluginLoader;
 
+import org.apache.commons.io.FileUtils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.InvalidPluginException;
@@ -20,6 +22,7 @@ import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.UnknownDependencyException;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import org.python.core.*;
 
 /**
@@ -38,10 +41,27 @@ public class PythonLoader extends JavaPlugin {
      */
     @Override
     public void onLoad() {
-        //System.out.println("PythonLoader: initializing");
         // This must occur as early as possible, and only once.
         PluginManager pm = Bukkit.getServer().getPluginManager();
         boolean needsload = true;
+
+        // We need to make sure Jython's registry file exists
+        File jFile = new File(java.lang.System.getProperty("user.home") + "/.jython");
+
+        if (!jFile.exists()) {
+            URL inputUrl = getClass().getResource("/.jython");
+            try {
+                FileUtils.copyURLToFile(inputUrl, jFile);
+            } catch (IOException e) {
+                this.getLogger().warning("Unable to copy .jython to " + java.lang.System.getProperty("user.home"));
+                this.getLogger().warning("Please create it yourself and add the following line to it (without \"quotes\"):");
+                this.getLogger().warning("\"python.security.respectJavaAccessibility = false\"");
+                e.printStackTrace();
+            }
+        } else {
+            this.getLogger().info("File found: " + java.lang.System.getProperty("user.home") + "/.jython");
+            this.getLogger().info("If your Python plugins behave oddly, please make sure this file contains \"python.security.respectJavaAccessibility = false\".");
+        }
 
         String errorstr = "cannot ensure that the python loader class is not loaded twice!";
         Map<Pattern, PluginLoader> fileAssociations = ReflectionHelper.getFileAssociations(pm, errorstr);
