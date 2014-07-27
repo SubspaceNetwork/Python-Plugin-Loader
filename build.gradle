@@ -15,13 +15,26 @@ libDir.mkdirs()
 
 // Download Jynx (lol)
 
-def f = new File('lib/Jynx-0.4.2-jython-py2.5.jar')
+def f = new File('lib/Jynx-0.4.2-jython-py2.5.zip')
 if (!f.exists()) {
-    logger.info('Downloading dependency: Jynx-0.4.2-jython-py2.5.jar')
+    logger.info('Downloading dependency: Jynx-0.4.2-jython-py2.5.zip')
     new URL('https://jynx.googlecode.com/files/Jynx-0.4.2-jython-py2.5.zip').withInputStream{ i -> f.withOutputStream{ it << i }}
 } else {
     logger.info('Dependency already exists: prism-2.0.2.jar')
 }
+
+FileTree zip = zipTree('lib/Jynx-0.4.2-jython-py2.5.zip')
+
+copy {
+    from zip
+    into 'build/tmp/jynx'
+}
+
+FileTree tree = fileTree(dir: 'build/tmp/jynx/Jynx-0.4.2-jython-py2.5')
+
+tree.exclude("*.html")
+tree.exclude("setup.py")
+tree.exclude("PKG-INFO")
 
 buildscript {
     repositories {
@@ -58,11 +71,13 @@ dependencies {
 
 jar {
     from sourceSets.main.allJava
+    from tree
     archiveName = "PyPluginLoader-${version}-slim.jar"
 }
 
 fatJar {
     from sourceSets.main.allJava
+    from tree
     archiveName = "PyPluginLoader-${version}.jar"
 }
 
@@ -97,11 +112,6 @@ publishing {
 dependencies {
     compile 'org.python:jython-standalone:2.7-b2'
     compile 'org.bukkit:bukkit:1.7.9-R0.2', {
-        ext {
-            fatJarExclude = true
-        }
-    }
-    compile 'jynx:Jynx:0.4.2-jython-py2.5', {
         ext {
             fatJarExclude = true
         }
