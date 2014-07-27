@@ -52,6 +52,7 @@ public class PythonLoader extends JavaPlugin {
             URL inputUrl = getClass().getResource("/.jython");
             try {
                 FileUtils.copyURLToFile(inputUrl, jFile);
+                this.getLogger().info("File created: " + java.lang.System.getProperty("user.home") + "/.jython");
             } catch (IOException e) {
                 this.getLogger().warning("Unable to copy .jython to " + java.lang.System.getProperty("user.home"));
                 this.getLogger().warning("Please create it yourself and add the following line to it (without \"quotes\"):");
