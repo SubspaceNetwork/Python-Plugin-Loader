@@ -9,6 +9,20 @@ sourceCompatibility = 1.7
 version = '0.3.5'
 group = "org.masteroftime"
 
+// Create lib folder
+def libDir = new File('lib')
+libDir.mkdirs()
+
+// Download Jynx (lol)
+
+def f = new File('lib/Jynx-0.4.2-jython-py2.5.jar')
+if (!f.exists()) {
+    logger.info('Downloading dependency: Jynx-0.4.2-jython-py2.5.jar')
+    new URL('https://jynx.googlecode.com/files/Jynx-0.4.2-jython-py2.5.zip').withInputStream{ i -> f.withOutputStream{ it << i }}
+} else {
+    logger.info('Dependency already exists: prism-2.0.2.jar')
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -83,6 +97,11 @@ publishing {
 dependencies {
     compile 'org.python:jython-standalone:2.7-b2'
     compile 'org.bukkit:bukkit:1.7.9-R0.2', {
+        ext {
+            fatJarExclude = true
+        }
+    }
+    compile ':Jynx:0.4.2-jython-py2.5', {
         ext {
             fatJarExclude = true
         }
