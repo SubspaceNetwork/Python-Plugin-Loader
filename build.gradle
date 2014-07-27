@@ -101,7 +101,7 @@ dependencies {
             fatJarExclude = true
         }
     }
-    compile ':Jynx:0.4.2-jython-py2.5', {
+    compile 'jynx:Jynx:0.4.2-jython-py2.5', {
         ext {
             fatJarExclude = true
         }
