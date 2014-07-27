@@ -77,7 +77,8 @@ jar {
 
 fatJar {
     from sourceSets.main.allJava
-    include "build/tmp/jynx/Jynx-0.4.2-jython-py2.5/**"
+    from tree
+    include "**/*"
     archiveName = "PyPluginLoader-${version}.jar"
 }
 
