@@ -1,8 +1,7 @@
 Python Plugin Loader
 ====================
 
-**Please note: The decorator API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1). Please write your plugins using the
-  class-based API!**
+**Please note: The class API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1#issuecomment-50282565) and the decorator API has [a bug](https://github.com/gdude2002/Python-Plugin-Loader/issues/1).**
 
 An update on the above: I'm not really sure we should *have* a decorator API, as it isn't in line with the Java way
 of doing things, and we are essentially working with Java using Python's syntax here. Instead, I highly recommend
@@ -60,8 +59,6 @@ Writing plugins with PythonLoader is fairly easy. There are two APIs, both
 of which are pretty simple; The first is the bukkit api, which this loader
 lightly wraps; and the other is a decorators-and-functions api.
 
-**Note: The decorator API is [broken at the moment](https://github.com/gdude2002/Python-Plugin-Loader/issues/1).**
-
 Basics
 ------
 
@@ -79,6 +76,8 @@ And so on.
 
 Class (standard Bukkit API
 ---------------------------
+
+**Note: The Class API is [currently not working](https://github.com/gdude2002/Python-Plugin-Loader/issues/1#issuecomment-50282565). Use the Decorator API (below) instead!**
 
 To writing a plugin with this API is almost identical to writing one in Java - so
 much so that you can safely use the documentation on how to write a java
@@ -108,9 +107,10 @@ class SampleClass(PythonPlugin):
 Decorator API
 -------------
 
+**Note: The Decorator API has [a bug](https://github.com/gdude2002/Python-Plugin-Loader/issues/1)**
+
 Writing a plugin with this api is much more concise, as you need to declare no
-classes. **But it's [not working right now](https://github.com/gdude2002/Python-Plugin-Loader/issues/1)**,
-so use the class-based API instead.
+classes.
 
 `plugin.yml`:
 
