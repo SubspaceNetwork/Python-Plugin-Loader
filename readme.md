@@ -1,8 +1,7 @@
 Python Plugin Loader
 ====================
 
-**Please note: The decorator API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1). Please write your plugins using the
-  class-based API!**
+**Please note: The class API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1#issuecomment-50282565) and the decorator API has [a bug](https://github.com/gdude2002/Python-Plugin-Loader/issues/1).**
 
 An update on the above: I'm not really sure we should *have* a decorator API, as it isn't in line with the Java way
 of doing things, and we are essentially working with Java using Python's syntax here. Instead, I highly recommend
