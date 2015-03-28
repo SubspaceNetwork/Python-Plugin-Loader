@@ -1,4 +1,4 @@
-Python Plugin Loader
+Python Plugin Loader [![Build Status](https://travis-ci.org/gdude2002/Python-Plugin-Loader.svg?branch=master)](https://travis-ci.org/gdude2002/Python-Plugin-Loader)
 ====================
 
 **Please note: The class API appears to be [broken](https://github.com/gdude2002/Python-Plugin-Loader/issues/1#issuecomment-50282565) and the decorator API has [a bug](https://github.com/gdude2002/Python-Plugin-Loader/issues/1).**
