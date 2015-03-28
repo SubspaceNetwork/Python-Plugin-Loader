@@ -92,7 +92,7 @@ publishing {
 }
 
 dependencies {
-    compile 'org.python:jython-standalone:2.7-b3'
+    compile 'org.python:jython-standalone:2.7-b4'
     compile 'org.bukkit:bukkit:1.7.9-R0.2', {
         ext {
             fatJarExclude = true
