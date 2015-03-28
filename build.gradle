@@ -52,9 +52,6 @@ configurations {
     // configuration that holds jars to copy into lib
     extraLibs
 }
-dependencies {
-//    extraLibs 'org.python:jython-standalone:2.7-b2'
-}
 
 jar {
     from sourceSets.main.allJava
@@ -95,7 +92,7 @@ publishing {
 }
 
 dependencies {
-    compile 'org.python:jython-standalone:2.7-b2'
+    compile 'org.python:jython-standalone:2.7-b3'
     compile 'org.bukkit:bukkit:1.7.9-R0.2', {
         ext {
             fatJarExclude = true
