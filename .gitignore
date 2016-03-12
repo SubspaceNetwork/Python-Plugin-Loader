@@ -3,16 +3,16 @@
 .project
 .settings/
 bin/
+*.class
 
 # Maven build
 target/
 
 # Gradle build
 build/
+.gradle/
+lib/
 
 # IDEA
 .idea/
 *.iml
-
-# Bukkit
-bukkit/
