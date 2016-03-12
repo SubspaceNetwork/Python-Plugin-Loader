@@ -1,4 +1,4 @@
-Python Plugin Loader
+Python Plugin Loader [![Build Status](https://travis-ci.org/gdude2002/Python-Plugin-Loader.svg?branch=master)](https://travis-ci.org/gdude2002/Python-Plugin-Loader)
 ====================
 
 Build: [![](https://camo.githubusercontent.com/3fe36a2508944552efd917025c237c98d3f723e4/687474703a2f2f62616d626f6f2e67736572762e6d652f706c7567696e732f736572766c65742f6275696c64537461747573496d6167652f504c55472d5059504c)](http://bamboo.gserv.me/browse/PLUG-PYPL/latest)
