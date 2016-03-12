@@ -20,7 +20,7 @@ if (!f.exists()) {
     logger.info('Downloading dependency: Jynx-0.4.2-jython-py2.5.zip')
     new URL('https://jynx.googlecode.com/files/Jynx-0.4.2-jython-py2.5.zip').withInputStream{ i -> f.withOutputStream{ it << i }}
 } else {
-    logger.info('Dependency already exists: prism-2.0.2.jar')
+    logger.info('Dependency already exists: Jynx-0.4.2-jython-py2.5.zip')
 }
 
 buildscript {
