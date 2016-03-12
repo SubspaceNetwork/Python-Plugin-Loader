@@ -40,9 +40,10 @@ repositories {
         // dirs '../lib', 'lib'
         dirs 'lib'
     }
-    // Bukkit
+    // Spigot + Dependencies
     maven {
-        url 'http://repo.bukkit.org/content/groups/public/'
+        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        url "https://hub.spigotmc.org/nexus/content/repositories/public/"
     }
     // Maven central
     mavenCentral()
@@ -92,8 +93,8 @@ publishing {
 }
 
 dependencies {
-    compile 'org.python:jython-standalone:2.7-rc1'
-    compile 'org.bukkit:bukkit:1.7.9-R0.2', {
+    compile 'org.python:jython-standalone:2.7.0'
+    compile 'org.bukkit:bukkit:1.9-R0.1-SNAPSHOT', {
         ext {
             fatJarExclude = true
         }
